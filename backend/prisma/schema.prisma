@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model COMPARISON{
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tayebaExplanation     String @default("تفسير الطيبة")
+  shatebeyaExplanation     String @default("تفسير الشاطبية")
+}
+
+model RULE {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name     String   @db.String
+  rawy     RAWY @default(HAFS)
+  matn     MATN @default(TAYEBA)
+}
+
+enum RAWY {
+  HAFS
+  WARSH
+}
+
+enum MATN {
+  TAYEBA
+  SHATEBEYA
+}
