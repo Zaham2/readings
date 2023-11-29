@@ -10,7 +10,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model COMPARISON{
+model comparison{
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -18,7 +18,7 @@ model COMPARISON{
   shatebeyaExplanation     String @default("تفسير الشاطبية")
 }
 
-model RULE {
+model rule {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
