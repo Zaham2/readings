@@ -10,54 +10,73 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model comparison{
+model matn {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  rules rule[] @relation(fields: [ruleIds], references: [id])
-  ruleIds String[] @db.ObjectId
-}
-
-model rule {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name     String   @db.String
-  rawy     RAWY @default(HAFS)
-  matn     MATN @default(TAYEBA)
+  name     String @unique  @db.String
   description     String @default("الوصف")
-  comparisons comparison[] @relation(fields: [comparisonIds], references: [id])
-  comparisonIds String[] @db.ObjectId 
-  abyat RuleAbyat[]
-}
-
-model Table {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  title String @db.String
+  abyat bayt[]
 }
 
 model bayt {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
-  matn     MATN @default(TAYEBA)
-  words  String @db.String @default("البيت")
-  rules RuleAbyat[]
+  bayt     String @db.String
+  normalizedBayt     String @db.String
+  matn matn @relation(fields: [matnId], references: [id])
+  matnId String @db.ObjectId
 }
 
-model  RuleAbyat {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  rule rule @relation(fields: [ruleIds], references: [id])
-  ruleIds String @db.ObjectId
-  abyat bayt @relation(fields: [abyatIds], references: [id])
-  abyatIds String @db.ObjectId
-}
+// model
 
-enum RAWY {
-  HAFS
-  WARSH
-}
+// model comparison{
+//   id    String @id @default(auto()) @map("_id") @db.ObjectId
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   rules rule[] @relation(fields: [ruleIds], references: [id])
+//   ruleIds String[] @db.ObjectId
+// }
 
-enum MATN {
-  TAYEBA
-  SHATEBEYA
-  DORRA
-}
+// model rule {
+//   id    String @id @default(auto()) @map("_id") @db.ObjectId
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   name     String   @db.String
+//   rawy     RAWY @default(HAFS)
+//   matn     MATN @default(TAYEBA)
+//   description     String @default("الوصف")
+//   comparisons comparison[] @relation(fields: [comparisonIds], references: [id])
+//   comparisonIds String[] @db.ObjectId 
+//   abyat RuleAbyat[]
+// }
+
+// model Table {
+//   id    String @id @default(auto()) @map("_id") @db.ObjectId
+//   title String @db.String
+// }
+
+// model bayt {
+//   id    String @id @default(auto()) @map("_id") @db.ObjectId
+//   matn     MATN @default(TAYEBA)
+//   words  String @db.String @default("البيت")
+//   rules RuleAbyat[]
+// }
+
+// model  RuleAbyat {
+//   id    String @id @default(auto()) @map("_id") @db.ObjectId
+//   rule rule @relation(fields: [ruleIds], references: [id])
+//   ruleIds String @db.ObjectId
+//   abyat bayt @relation(fields: [abyatIds], references: [id])
+//   abyatIds String @db.ObjectId
+// }
+
+// enum RAWY {
+//   HAFS
+//   WARSH
+// }
+
+// enum MATN {
+//   TAYEBA
+//   SHATEBEYA
+//   DORRA
+// }
