@@ -14,8 +14,8 @@ router.route('/')
 router.route('/seed')
     .put(seedAbyatAndMotoon)
 
-router.route('/search')
-    .get(searchForBayt)
+// router.route('/search')
+//     .get(searchForBayt)
 
 router.route('/:name')
     .get(getAbyat)

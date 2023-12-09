@@ -55,33 +55,40 @@ export async function getAbyat(req, res) {
     }
 }
 
-export async function getAllAbyat(req, res) {
+export async function getMotoon() {
+    // const data = tayebah() + shatebeya() + dorra()
+    // const splitData = splitByLine(data)
+    // const abyat = splitByBayt(splitData)
 
-    const data = tayebah() + shatebeya() + dorra()
-    const splitData = splitByLine(data)
-    const abyat = splitByBayt(splitData)
-    res.send(abyat)
+    const abyat = await prisma.bayt.findMany({})
+    // console.log('returning abyat')
+    // console.log(abyat)
+    return abyat
+}
+
+export async function getAllAbyat(req, res) {
+    res.send(getMotoon())
 }
 
 export async function searchForBayt(req, res) {
 
-    const data = tayebah() + shatebeya() + dorra()
-    const splitData = splitByLine(data)
-    const abyat = splitByBayt(splitData)
-
+    const { searchText } = req.body
+    const data = await getMotoon()
+    const nMatches = req.body.nMatches ?? 10
+    let counter = 0
     let result = []
-
-    for (let bayt of abyat) {
-        console.log(bayt)
-        bayt = normalizeText(bayt)
-        if (bayt.includes(req.body.searchText)) {
-            result.push(bayt)
+    console.log('before loop')
+    console.log(data.length)
+    for (let index = 0; index < data.length && counter <= nMatches; index++) {
+        if (data[index].normalizedBayt.includes(searchText)) {
+            // console.log(data[index])
+            result.push(data[index])
+            counter++
         }
     }
 
-    console.log('res')
+    console.log('after loop')
     console.log(result)
-
     res.send(result)
 
 }
