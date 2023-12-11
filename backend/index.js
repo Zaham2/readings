@@ -6,6 +6,7 @@ import comparisonsRoutes from './routes/comparisonsApi.js';
 import matnRoutes from './routes/matnRoutes.js';
 import baytApi from './routes/baytApi.js';
 import cors from 'cors';
+import 'dotenv/config'
 
 // require the .env file
 // require('dotenv').config();
